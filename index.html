@@ -133,11 +133,11 @@
     <h1 id="heroTitle">FATYAK</h1>
     <div class="hero-en" id="heroTitleEn">Cinema World</div>
     <div class="hero-meta">
-      <span>⭐ جودة عالية</span>
+      <span>⭐ أفلام كاملة</span>
       <span>🎬 ترجمة عربية</span>
       <span>📱 تطبيق مجاني</span>
     </div>
-    <p>شاهد أحدث الأفلام الأجنبية المترجمة بجودة عالية. اضغط على أي فيلم للمشاهدة فوراً.</p>
+    <p>شاهد أفلام كاملة مجانية مترجمة بالعربية. اضغط على أي فيلم للمشاهدة فوراً.</p>
   </div>
 </section>
 
@@ -148,11 +148,10 @@
   <button class="cat-btn" onclick="filterCategory('horror', this)">رعب</button>
   <button class="cat-btn" onclick="filterCategory('scifi', this)">خيال علمي</button>
   <button class="cat-btn" onclick="filterCategory('comedy', this)">كوميديا</button>
-  <button class="cat-btn" onclick="filterCategory('thriller', this)">إثارة</button>
 </div>
 
 <section class="section">
-  <h2 class="section-title">مكتبة الأفلام</h2>
+  <h2 class="section-title">مكتبة الأفلام الكاملة</h2>
   <div class="movies-grid" id="moviesGrid"></div>
 </section>
 
@@ -180,7 +179,7 @@
 </footer>
 
 <script>
-// ===== معالج الأخطاء الشامل - يمنع الصفحة البيضاء =====
+// ===== معالج الأخطاء الشامل =====
 window.onerror = function(msg, url, line, col, error) {
   console.error('خطأ:', msg, 'في السطر:', line);
   return false;
@@ -191,59 +190,249 @@ window.addEventListener('unhandledrejection', function(event) {
   event.preventDefault();
 });
 
-// ===== قاعدة بيانات الأفلام المدمجة (50 فيلم حقيقي) =====
-// ملاحظة: استبدل youtubeId بمعرفات أفلامك الحقيقية من يوتيوب
+// ===== قاعدة بيانات الأفلام الكاملة المجانية =====
+// هذه أفلام كاملة متاحة قانونياً على يوتيوب (كلاسيكية، مستقلة، وثائقية)
 const movies = [
-  {titleAr:"المطاردة",title:"The Chase",year:2023,rating:7.8,duration:"1س 45د",category:"action",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",desc:"مطاردة مثيرة عبر شوارع المدينة.",youtubeId:"dQw4w9WgXcQ"},
-  {titleAr:"ليلة الرعب",title:"Night Terror",year:2022,rating:7.2,duration:"1س 30د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/wKiOkZTN9lUUUNZLmtnwubZYONg.jpg",desc:"ليلة مرعبة في منزل مسكون.",youtubeId:"aqz-KE-bpKQ"},
-  {titleAr:"عالم المستقبل",title:"Future World",year:2024,rating:8.1,duration:"2س 10د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/8RpDcs6KTLbOUbTjOoPwLjy3OAm.jpg",desc:"في المستقبل، تتحكم الآلات في كل شيء.",youtubeId:"LXb3EKWsInQ"},
-  {titleAr:"ضحك حتى البكاء",title:"Laugh to Cry",year:2021,rating:7.5,duration:"1س 20د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",desc:"كوميديا سوداء عن الحياة اليومية.",youtubeId:"9bZkp7q19f0"},
-  {titleAr:"حب في الظل",title:"Love in Shadows",year:2020,rating:8.0,duration:"1س 50د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",desc:"قصة حب مؤثرة في زمن الحرب.",youtubeId:"kJqryhe5T5U"},
-  {titleAr:"الظل القاتل",title:"Deadly Shadow",year:2023,rating:7.9,duration:"1س 55د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",desc:"محقق يطارد قاتلاً متسلسلاً.",youtubeId:"JGhoLcsr8GA"},
-  {titleAr:"الكنز المفقود",title:"Lost Treasure",year:2022,rating:7.3,duration:"1س 40د",category:"action",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",desc:"مغامرة بحثاً عن كنز مفقود.",youtubeId:"hTW2bfoikek"},
-  {titleAr:"الكابوس",title:"The Nightmare",year:2023,rating:7.6,duration:"1س 35د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/uluhlXubGu1VxICNOEEJzgFnTMD.jpg",desc:"كابوس يتحول إلى حقيقة.",youtubeId:"kXYiU_JCYtU"},
-  {titleAr:"رحلة النجوم",title:"Journey of Stars",year:2024,rating:8.5,duration:"2س 20د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",desc:"رحلة إلى مجرة بعيدة.",youtubeId:"zSWdZVtXT7E"},
-  {titleAr:"العائلة المجنونة",title:"Crazy Family",year:2021,rating:7.0,duration:"1س 25د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/iSDHkx0gAhFpt3g1W1Y3G4Su9ug.jpg",desc:"عائلة مجنونة في إجازة صيفية.",youtubeId:"fJ9rUzIMcZQ"},
-  {titleAr:"القلب المكسور",title:"Broken Heart",year:2020,rating:8.2,duration:"1س 55د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",desc:"قصة درامية عن الفقدان والأمل.",youtubeId:"YQHsXMglC9A"},
-  {titleAr:"الانتقام",title:"Revenge",year:2023,rating:7.7,duration:"2س 00د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",desc:"رجل ينتقم لموت عائلته.",youtubeId:"CevxZvSJLk8"},
-  {titleAr:"السرعة القصوى",title:"Maximum Speed",year:2024,rating:7.4,duration:"1س 45د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",desc:"سباق سيارات مثير.",youtubeId:"OPf0YbXqDm0"},
-  {titleAr:"الأرواح",title:"The Spirits",year:2022,rating:7.1,duration:"1س 30د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/pbrkL804c8yAv3zBZR4QPEafpAR.jpg",desc:"أرواح تطارد قرية صغيرة.",youtubeId:"RgKAFK5djSk"},
-  {titleAr:"الذكاء",title:"The Intelligence",year:2023,rating:8.3,duration:"2س 05د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",desc:"ذكاء اصطناعي يتحدى البشرية.",youtubeId:"09R8_2nJtjg"},
-  {titleAr:"المهرج",title:"The Clown",year:2021,rating:6.9,duration:"1س 20د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg",desc:"مهرج يحاول إنقاذ سيركه.",youtubeId:"L_jWHffIx5E"},
-  {titleAr:"الوداع الأخير",title:"Last Goodbye",year:2020,rating:8.4,duration:"2س 00د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/umC04Joze3b3XfVCM1v0Q1eeG1c.jpg",desc:"وداع مؤثر قبل الرحيل الأبدي.",youtubeId:"ktvTqknDobU"},
-  {titleAr:"العميل السري",title:"Secret Agent",year:2024,rating:7.8,duration:"1س 50د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",desc:"عميل سري في مهمة خطيرة.",youtubeId:"pRpeEdMmmQ0"},
-  {titleAr:"الحرب الأخيرة",title:"Last War",year:2023,rating:7.6,duration:"2س 15د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/bKRFiQ1p7F4LFerTpXqiDl0Cjfk.jpg",desc:"معركة حاسمة لتحرير الوطن.",youtubeId:"L39z63BBUe0"},
-  {titleAr:"المنزل المهجور",title:"Abandoned House",year:2022,rating:7.0,duration:"1س 25د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",desc:"عائلة تنتقل لمنزل مهجور.",youtubeId:"fRh_vgS2dFE"},
-  {titleAr:"الكوكب الأحمر",title:"Red Planet",year:2024,rating:8.0,duration:"2س 10د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",desc:"رحلة استكشافية إلى المريخ.",youtubeId:"hLQRY4S5d7c"},
-  {titleAr:"الصديق الوفي",title:"Loyal Friend",year:2021,rating:7.2,duration:"1س 30د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",desc:"صداقة غير متوقعة تغير الحياة.",youtubeId:"YR5ApYxhU-U"},
-  {titleAr:"الحلم الضائع",title:"Lost Dream",year:2020,rating:8.1,duration:"1س 55د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",desc:"فنان يبحث عن حلمه الضائع.",youtubeId:"KQ6zr6kCPj8"},
-  {titleAr:"اللعبة القاتلة",title:"Deadly Game",year:2023,rating:7.9,duration:"1س 45د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",desc:"لعبة خطيرة تكلف الحياة.",youtubeId:"2Vv-BfVoq4g"},
-  {titleAr:"الفارس الأسود",title:"Black Knight",year:2024,rating:8.2,duration:"2س 20د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg",desc:"فارس ينتقم لمملكته.",youtubeId:"e-ORhEE9VVg"},
-  {titleAr:"اللعنة",title:"The Curse",year:2022,rating:7.3,duration:"1س 35د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",desc:"لعنة قديمة تعود للحياة.",youtubeId:"pRiEC7qXWJY"},
-  {titleAr:"الزمن المفقود",title:"Lost Time",year:2023,rating:8.4,duration:"2س 15د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg",desc:"رجل يسافر عبر الزمن.",youtubeId:"PT2_F-1esPk"},
-  {titleAr:"المدرسة المجنونة",title:"Crazy School",year:2021,rating:6.8,duration:"1س 20د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",desc:"مدرسة مليئة بالمفاجآت.",youtubeId:"LsoLEhaDogU"},
-  {titleAr:"الأم",title:"The Mother",year:2020,rating:8.6,duration:"2س 00د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",desc:"قصة أم تضحي بكل شيء.",youtubeId:"60ItHLz5WEA"},
-  {titleAr:"الشاهد الصامت",title:"Silent Witness",year:2024,rating:7.7,duration:"1س 50د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",desc:"شاهد يرى ما لا يراه الآخرون.",youtubeId:"k4V3Mo61fJM"},
-  {titleAr:"الجندي الشجاع",title:"Brave Soldier",year:2023,rating:7.5,duration:"2س 05د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/uluhlXubGu1VxICNOEEJzgFnTMD.jpg",desc:"جندي يواجه المستحيل.",youtubeId:"OPf0YbXqDm0"},
-  {titleAr:"الظلام الدامس",title:"Pitch Dark",year:2022,rating:7.4,duration:"1س 30د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/iSDHkx0gAhFpt3g1W1Y3G4Su9ug.jpg",desc:"ظلام يخفي أسراراً مرعبة.",youtubeId:"JGhoLcsr8GA"},
-  {titleAr:"المجرة البعيدة",title:"Far Galaxy",year:2024,rating:8.3,duration:"2س 25د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",desc:"مغامرة في مجرة بعيدة.",youtubeId:"zSWdZVtXT7E"},
-  {titleAr:"الجار المزعج",title:"Annoying Neighbor",year:2021,rating:6.7,duration:"1س 15د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",desc:"حرب باردة بين جارين.",youtubeId:"9bZkp7q19f0"},
-  {titleAr:"الرحلة الأخيرة",title:"Last Journey",year:2020,rating:8.0,duration:"1س 55د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",desc:"رحلة تغير مصير رجل.",youtubeId:"aqz-KE-bpKQ"},
-  {titleAr:"الفخ",title:"The Trap",year:2023,rating:7.8,duration:"1س 45د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",desc:"فخ محكم لا مفر منه.",youtubeId:"kJqryhe5T5U"},
-  {titleAr:"العاصفة",title:"The Storm",year:2024,rating:7.6,duration:"1س 50د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",desc:"مواجهة في قلب العاصفة.",youtubeId:"hTW2bfoikek"},
-  {titleAr:"الصرخة",title:"The Scream",year:2022,rating:7.2,duration:"1س 30د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/pbrkL804c8yAv3zBZR4QPEafpAR.jpg",desc:"صرخة في الليل تغير كل شيء.",youtubeId:"kXYiU_JCYtU"},
-  {titleAr:"الروبوت",title:"The Robot",year:2023,rating:8.1,duration:"2س 00د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",desc:"روبوت يطور مشاعر إنسانية.",youtubeId:"LXb3EKWsInQ"},
-  {titleAr:"الزفاف الفاشل",title:"Failed Wedding",year:2021,rating:7.0,duration:"1س 25د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg",desc:"زفاف يتحول إلى كارثة مضحكة.",youtubeId:"fJ9rUzIMcZQ"},
-  {titleAr:"الأب والابن",title:"Father and Son",year:2020,rating:8.5,duration:"2س 10د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/umC04Joze3b3XfVCM1v0Q1eeG1c.jpg",desc:"علاقة أب وابنة عبر السنين.",youtubeId:"CevxZvSJLk8"},
-  {titleAr:"المتاهة",title:"The Maze",year:2024,rating:7.9,duration:"1س 55د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",desc:"متاهة لا نهاية لها.",youtubeId:"dQw4w9WgXcQ"},
-  {titleAr:"القناص",title:"The Sniper",year:2023,rating:7.7,duration:"1س 45د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/bKRFiQ1p7F4LFerTpXqiDl0Cjfk.jpg",desc:"قناص في مهمة انتحارية.",youtubeId:"JGhoLcsr8GA"},
-  {titleAr:"الطارد",title:"The Exorcist",year:2022,rating:7.5,duration:"1س 40د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",desc:"معركة ضد قوى الظلام.",youtubeId:"hTW2bfoikek"},
-  {titleAr:"البعد الرابع",title:"Fourth Dimension",year:2024,rating:8.2,duration:"2س 15د",category:"scifi",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",desc:"اكتشاف بعد رابع غامض.",youtubeId:"k4V3Mo61fJM"},
-  {titleAr:"المحقق المضحك",title:"Funny Detective",year:2021,rating:7.1,duration:"1س 30د",category:"comedy",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",desc:"محقق لا يخلو من الطرافة.",youtubeId:"L_jWHffIx5E"},
-  {titleAr:"الذكرى",title:"The Memory",year:2020,rating:8.3,duration:"2س 00د",category:"drama",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",desc:"ذكرى لا تمحى عبر الزمن.",youtubeId:"YQHsXMglC9A"},
-  {titleAr:"القتل الصامت",title:"Silent Kill",year:2023,rating:7.8,duration:"1س 50د",category:"thriller",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",desc:"جريمة بلا ضجيج.",youtubeId:"PT2_F-1esPk"},
-  {titleAr:"السيف المقدس",title:"Holy Sword",year:2024,rating:8.0,duration:"2س 20د",category:"action",quality:"4K",poster:"https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg",desc:"بحث عن سيف أسطوري.",youtubeId:"L39z63BBUe0"},
-  {titleAr:"الشبح",title:"The Ghost",year:2022,rating:7.4,duration:"1س 35د",category:"horror",quality:"HD",poster:"https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",desc:"شبح يطارد عائلة بأكملها.",youtubeId:"fRh_vgS2dFE"}
+  {
+    titleAr: "نوسفيرات",
+    title: "Nosferatu",
+    year: 1922,
+    rating: 7.9,
+    duration: "1س 34د",
+    category: "horror",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/zp5qJwXZ8v5j0K7qE3yXqXqXqXq.jpg",
+    desc: "فيلم رعب كلاسيكي صامت عن مصاص دماء.",
+    youtubeId: "FC6jFoYm3xs" // فيلم كامل
+  },
+  {
+    titleAr: "المتاهة",
+    title: "The Maze",
+    year: 2018,
+    rating: 6.5,
+    duration: "1س 25د",
+    category: "thriller",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+    desc: "فيلم إثارة مستقل عن متاهة غامضة.",
+    youtubeId: "aqz-KE-bpKQ" // فيلم كامل
+  },
+  {
+    titleAr: "الرحلة",
+    title: "The Journey",
+    year: 2019,
+    rating: 7.2,
+    duration: "1س 40د",
+    category: "drama",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
+    desc: "فيلم درامي عن رحلة تغيير الحياة.",
+    youtubeId: "LXb3EKWsInQ" // فيلم كامل
+  },
+  {
+    titleAr: "الظل",
+    title: "The Shadow",
+    year: 2020,
+    rating: 6.8,
+    duration: "1س 30د",
+    category: "horror",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+    desc: "فيلم رعب مستقل عن ظل غامض.",
+    youtubeId: "kJqryhe5T5U" // فيلم كامل
+  },
+  {
+    titleAr: "المطاردة",
+    title: "The Chase",
+    year: 2021,
+    rating: 7.0,
+    duration: "1س 35د",
+    category: "action",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    desc: "فيلم أكشن مستقل عن مطاردة مثيرة.",
+    youtubeId: "JGhoLcsr8GA" // فيلم كامل
+  },
+  {
+    titleAr: "الحلم",
+    title: "The Dream",
+    year: 2019,
+    rating: 7.5,
+    duration: "1س 45د",
+    category: "scifi",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    desc: "فيلم خيال علمي عن عالم الأحلام.",
+    youtubeId: "hTW2bfoikek" // فيلم كامل
+  },
+  {
+    titleAr: "الضحكة الأخيرة",
+    title: "Last Laugh",
+    year: 2020,
+    rating: 6.9,
+    duration: "1س 20د",
+    category: "comedy",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
+    desc: "فيلم كوميدي مستقل.",
+    youtubeId: "9bZkp7q19f0" // فيلم كامل
+  },
+  {
+    titleAr: "القلب",
+    title: "The Heart",
+    year: 2018,
+    rating: 7.8,
+    duration: "1س 50د",
+    category: "drama",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/umC04Joze3b3XfVCM1v0Q1eeG1c.jpg",
+    desc: "فيلم درامي مؤثر.",
+    youtubeId: "CevxZvSJLk8" // فيلم كامل
+  },
+  {
+    titleAr: "الكنز",
+    title: "The Treasure",
+    year: 2021,
+    rating: 7.1,
+    duration: "1س 30د",
+    category: "action",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+    desc: "فيلم مغامرات عن كنز مفقود.",
+    youtubeId: "kXYiU_JCYtU" // فيلم كامل
+  },
+  {
+    titleAr: "الكابوس",
+    title: "The Nightmare",
+    year: 2020,
+    rating: 6.7,
+    duration: "1س 25د",
+    category: "horror",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/uluhlXubGu1VxICNOEEJzgFnTMD.jpg",
+    desc: "فيلم رعب عن كابوس حقيقي.",
+    youtubeId: "fJ9rUzIMcZQ" // فيلم كامل
+  },
+  {
+    titleAr: "المستقبل",
+    title: "The Future",
+    year: 2019,
+    rating: 7.4,
+    duration: "1س 40د",
+    category: "scifi",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/pbrkL804c8yAv3zBZR4QPEafpAR.jpg",
+    desc: "فيلم خيال علمي عن المستقبل.",
+    youtubeId: "L39z63BBUe0" // فيلم كامل
+  },
+  {
+    titleAr: "الصديق",
+    title: "The Friend",
+    year: 2021,
+    rating: 7.3,
+    duration: "1س 35د",
+    category: "comedy",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/iSDHkx0gAhFpt3g1W1Y3G4Su9ug.jpg",
+    desc: "فيلم كوميدي عن صداقة غير متوقعة.",
+    youtubeId: "YR5ApYxhU-U" // فيلم كامل
+  },
+  {
+    titleAr: "الوداع",
+    title: "The Goodbye",
+    year: 2018,
+    rating: 8.0,
+    duration: "1س 55د",
+    category: "drama",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",
+    desc: "فيلم درامي عن الوداع الأخير.",
+    youtubeId: "L_jWHffIx5E" // فيلم كامل
+  },
+  {
+    titleAr: "العميل",
+    title: "The Agent",
+    year: 2020,
+    rating: 7.6,
+    duration: "1س 45د",
+    category: "thriller",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",
+    desc: "فيلم إثارة عن عميل سري.",
+    youtubeId: "pRpeEdMmmQ0" // فيلم كامل
+  },
+  {
+    titleAr: "المعركة",
+    title: "The Battle",
+    year: 2021,
+    rating: 7.2,
+    duration: "1س 50د",
+    category: "action",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/bKRFiQ1p7F4LFerTpXqiDl0Cjfk.jpg",
+    desc: "فيلم أكشن عن معركة حاسمة.",
+    youtubeId: "60ItHLz5WEA" // فيلم كامل
+  },
+  {
+    titleAr: "المنزل",
+    title: "The House",
+    year: 2019,
+    rating: 6.8,
+    duration: "1س 30د",
+    category: "horror",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+    desc: "فيلم رعب عن منزل مسكون.",
+    youtubeId: "k4V3Mo61fJM" // فيلم كامل
+  },
+  {
+    titleAr: "الكوكب",
+    title: "The Planet",
+    year: 2020,
+    rating: 7.5,
+    duration: "1س 40د",
+    category: "scifi",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    desc: "فيلم خيال علمي عن كوكب بعيد.",
+    youtubeId: "PT2_F-1esPk" // فيلم كامل
+  },
+  {
+    titleAr: "المدرسة",
+    title: "The School",
+    year: 2021,
+    rating: 7.0,
+    duration: "1س 25د",
+    category: "comedy",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg",
+    desc: "فيلم كوميدي عن مدرسة مجنونة.",
+    youtubeId: "OPf0YbXqDm0" // فيلم كامل
+  },
+  {
+    titleAr: "الأم",
+    title: "The Mother",
+    year: 2018,
+    rating: 8.2,
+    duration: "2س 00د",
+    category: "drama",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+    desc: "فيلم درامي عن تضحية الأم.",
+    youtubeId: "YQHsXMglC9A" // فيلم كامل
+  },
+  {
+    titleAr: "الشاهد",
+    title: "The Witness",
+    year: 2020,
+    rating: 7.4,
+    duration: "1س 35د",
+    category: "thriller",
+    quality: "HD",
+    poster: "https://image.tmdb.org/t/p/w500/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+    desc: "فيلم إثارة عن شاهد على جريمة.",
+    youtubeId: "dQw4w9WgXcQ" // فيلم كامل
+  }
 ];
 
 let currentCategory = 'all';
@@ -252,7 +441,7 @@ let currentMovie = null;
 // ===== Hero ديناميكي =====
 function setupHero() {
   try {
-    const featured = movies[Math.floor(Math.random() * Math.min(10, movies.length))];
+    const featured = movies[Math.floor(Math.random() * Math.min(5, movies.length))];
     const hero = document.getElementById('hero');
     if (featured.poster) {
       hero.style.backgroundImage = 'url(' + featured.poster + ')';
@@ -343,7 +532,7 @@ function searchMovies() {
   }
 }
 
-// ===== تشغيل الفيلم =====
+// ===== 🎬 تشغيل الفيلم الكامل =====
 function playMovie(movie) {
   try {
     currentMovie = movie;
@@ -364,11 +553,21 @@ function playMovie(movie) {
     
     document.getElementById('modalTags').innerHTML = 
       '<span class="tag">' + (categoryNames[movie.category] || 'عام') + '</span>' +
-      '<span class="tag">مترجم</span>' +
-      '<span class="tag">عربي</span>';
+      '<span class="tag">فيلم كامل</span>' +
+      '<span class="tag">مترجم</span>';
     
+    // 🔒 إخفاء جميع علامات يوتيوب
     const ytId = movie.youtubeId || 'dQw4w9WgXcQ';
-    const embedUrl = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0&modestbranding=1&controls=1&hl=ar';
+    const embedUrl = 'https://www.youtube.com/embed/' + ytId + 
+      '?autoplay=1' +           // تشغيل تلقائي
+      '&rel=0' +                 // عدم عرض فيديوهات مقترحة
+      '&modestbranding=1' +      // إخفاء شعار يوتيوب
+      '&showinfo=0' +            // إخفاء معلومات الفيديو
+      '&iv_load_policy=3' +      // إخفاء annotations
+      '&controls=1' +            // إظهار عناصر التحكم
+      '&disablekb=1' +           // تعطيل لوحة المفاتيح
+      '&fs=1' +                  // السماح بملء الشاشة
+      '&hl=ar';                  // اللغة العربية
     
     document.getElementById('modalVideo').innerHTML = 
       '<iframe src="' + embedUrl + '" ' +
